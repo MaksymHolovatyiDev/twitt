@@ -1,2 +1,8 @@
-@import './vars';
-@import './auth';
+@import './base/reset';
+@import './base/vars';
+
+@import './components/header';
+@import './components/main';
+@import './components/post';
+
+@import './components/auth';

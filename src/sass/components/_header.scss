@@ -1,0 +1,26 @@
+.header {
+  position: relative;
+
+  padding: 0 var(--main-padding);
+
+  box-shadow: 0 2px 16px var(--primary);
+
+  &__title {
+    box-sizing: content-box;
+    position: absolute;
+
+    bottom: 0;
+    left: 50%;
+
+    color: var(--primary);
+
+    transform: translateX(-50%);
+    line-height: 0.8;
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
