@@ -1,6 +1,6 @@
 'use client';
 
-import { signUpData } from '@assets/authData/authData';
+import { signUpData } from '@components/Auth/authData/authData';
 import Auth from '@components/Auth/Auth';
 
 export default function SignUp() {

@@ -1,0 +1,28 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 70px 0 20px;
+
+  box-shadow: 0px 4px 2px -2px var(--primary);
+
+  &__avatar {
+    height: 300px;
+    width: 300px;
+
+    background-color: black;
+
+    border-radius: 100%;
+  }
+
+  &__name {
+    font-size: 50px;
+  }
+  &__list {
+    padding-top: 80px;
+  }
+}

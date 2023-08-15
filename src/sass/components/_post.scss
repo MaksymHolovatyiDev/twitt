@@ -14,7 +14,7 @@
       align-items: center;
       gap: 10px;
 
-      justify-content: start;
+      justify-content: flex-start;
     }
     &--space {
       display: flex;
@@ -40,9 +40,11 @@
     background-color: red;
   }
 
-  &__description {
-    width: 80%;
-    white-space: nowrap;
+  &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -53,4 +55,32 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.create-post {
+  &__input {
+    width: 100%;
+    height: 100%;
+
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+
+    margin-bottom: 10px;
+
+    resize: none;
+    box-sizing: border-box;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__image {
+    max-width: 300px;
+  }
 }

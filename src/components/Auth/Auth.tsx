@@ -1,4 +1,4 @@
-import { Button, FormControl, Input, InputLabel } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import Image from 'next/image';
 
 import { AuthData } from '@Types';
@@ -22,10 +22,7 @@ export default function Auth({ text, formData }: AuthData) {
         <p className="auth__text">{text}</p>
         <form className="auth__form" onSubmit={onSubmit}>
           {formData.map(el => (
-            <FormControl>
-              <InputLabel htmlFor={el.id}>{el.name}</InputLabel>
-              <Input id={el.id} aria-describedby={el.description} />
-            </FormControl>
+            <TextField id={el.id} label={el.name} variant="standard" />
           ))}
 
           <Button type="submit">{text}</Button>

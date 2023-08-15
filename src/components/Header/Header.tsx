@@ -1,7 +1,15 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function Header() {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <header className="header">
-      <h1 className="header__title">Twitt</h1>
+      <button type="button" className="header__title">
+        Twitt
+      </button>
       <nav>
         <ul className="header__navigation">
           <li>
