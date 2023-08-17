@@ -1,3 +1,5 @@
+import { PostType } from "@Redux/services/backendTypes";
+
 interface AuthFormDataItem {
   name: string;
   id: string;
@@ -14,3 +16,15 @@ export interface formDataValuesType {
   password: string;
   name?: string;
 }
+
+export interface PostListType{
+  posts: PostType[];
+}
+
+export interface ModalData{
+  data: {
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
+  }
+}
+

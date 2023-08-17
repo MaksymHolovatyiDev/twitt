@@ -7,7 +7,6 @@ export default function CreatePost() {
   const [image, setImage] = useState('');
 
   const onImageChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(evt);
     if (evt.target.files && evt.target.files[0]) {
       setImage(URL.createObjectURL(evt.target.files[0]));
     }

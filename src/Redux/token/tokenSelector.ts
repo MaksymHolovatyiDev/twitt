@@ -1,3 +1,6 @@
 import { RootState } from '@Redux/store';
+import { useSelector } from 'react-redux';
 
-export const getToken = (state: RootState) => state.token;
+export const useGetTokenState = () => {
+  return useSelector((state: RootState) => state.token.token);
+};

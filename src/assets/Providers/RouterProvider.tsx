@@ -1,19 +1,18 @@
 'use client';
 
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { usePathname } from 'next/navigation';
 
-import { getToken } from '@Redux/token/tokenSelector';
 import LogIn from '@app/LogIn/page';
 import Home from '@app/page';
+import { useGetTokenState } from '@Redux/token/tokenSelector';
 
 export default function RouterProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { token } = useSelector(getToken);
+  const token = useGetTokenState();
   const path = usePathname();
   const logInPage = path === '/LogIn';
   const singUpPage = path === '/SignUp';

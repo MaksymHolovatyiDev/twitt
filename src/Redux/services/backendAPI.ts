@@ -27,12 +27,19 @@ export const backendAPI = createApi({
         body: data.body,
       }),
     }),
+
     GetAllPosts: builder.query<PostType[], void>({
       query: () => ({
         url: 'posts/all',
       }),
     }),
+
+    GetUserPosts: builder.query<PostType[], void>({
+      query: () => ({
+        url: 'posts/user',
+      }),
+    }),
   }),
 });
 
-export const { useAuthorizationMutation, useGetAllPostsQuery } = backendAPI;
+export const { useAuthorizationMutation, useGetAllPostsQuery, useGetUserPostsQuery } = backendAPI;
