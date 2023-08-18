@@ -1,7 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { baseUrl } from '@environment/variables';
-import { AuthReq, AuthRes, PostType } from './backendTypes';
+import {
+  AuthReq,
+  AuthRes,
+  CreatePostReq,
+  LikeReq,
+  LikeRes,
+  PostType,
+  UserType,
+} from './backendTypes';
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
@@ -34,12 +42,34 @@ export const backendAPI = createApi({
       }),
     }),
 
-    GetUserPosts: builder.query<PostType[], void>({
+    GetUser: builder.query<UserType, void>({
       query: () => ({
         url: 'posts/user',
+      }),
+    }),
+
+    CreatePosts: builder.mutation<PostType, CreatePostReq>({
+      query: body => ({
+        url: 'posts/create',
+        method: 'POST',
+        body,
+      }),
+    }),
+
+    likePost: builder.mutation<LikeRes, LikeReq>({
+      query: body => ({
+        url: 'posts/like',
+        method: 'PATCH',
+        body,
       }),
     }),
   }),
 });
 
-export const { useAuthorizationMutation, useGetAllPostsQuery, useGetUserPostsQuery } = backendAPI;
+export const {
+  useAuthorizationMutation,
+  useGetAllPostsQuery,
+  useGetUserQuery,
+  useCreatePostsMutation,
+  useLikePostMutation,
+} = backendAPI;

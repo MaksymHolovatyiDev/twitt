@@ -3,6 +3,7 @@ import { PostListType } from '@Types';
 import Post from '@components/Post/Post';
 
 export default function PostsList({ posts }: PostListType) {
+ 
   return (
     <ul className="posts__list">
       {posts?.map((el: PostType) => (

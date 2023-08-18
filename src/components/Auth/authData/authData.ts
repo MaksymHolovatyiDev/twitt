@@ -1,4 +1,6 @@
-export const logInData = [
+import { Routes } from '@Routes';
+
+const logInData = [
   {
     name: 'Email address',
     id: 'email',
@@ -10,7 +12,8 @@ export const logInData = [
     type: 'password',
   },
 ];
-export const signUpData = [
+
+const signUpData = [
   {
     name: 'User name',
     id: 'name',
@@ -18,3 +21,24 @@ export const signUpData = [
   },
   ...logInData,
 ];
+
+export const getAuthPageData = (page: string) => {
+  switch (page) {
+    case Routes.SingUp:
+      return {
+        formData: signUpData,
+        text: 'Sign Up',
+        changePageButtonText: 'Log In',
+        changePageButtonRoute: Routes.LogIn,
+        path: Routes.SingUp,
+      };
+    default:
+      return {
+        formData: logInData,
+        text: 'Log In',
+        changePageButtonText: 'Sign Up',
+        changePageButtonRoute: Routes.SingUp,
+        path: Routes.LogIn,
+      };
+  }
+};

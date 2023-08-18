@@ -14,5 +14,23 @@ export interface PostType {
   img: string;
   text: string;
   likesNumber: number;
+  isLiked: boolean;
+}
+
+export interface UserType {
+  name: string;
+  posts: PostType[];
+}
+
+export interface CreatePostReq {
+  text: string;
+  image?: string;
+}
+
+export interface LikeReq {
+  _id: string;
+}
+
+export interface LikeRes {
   liked: boolean;
 }

@@ -1,15 +1,4 @@
-import { PostType } from "@Redux/services/backendTypes";
-
-interface AuthFormDataItem {
-  name: string;
-  id: string;
-  type: string;
-}
-
-export interface AuthData {
-  text: string;
-  formData: AuthFormDataItem[];
-}
+import { PostType } from '@Redux/services/backendTypes';
 
 export interface formDataValuesType {
   email: string;
@@ -17,14 +6,19 @@ export interface formDataValuesType {
   name?: string;
 }
 
-export interface PostListType{
+export interface PostListType {
   posts: PostType[];
 }
 
-export interface ModalData{
-  data: {
-    isOpen: boolean;
-    setIsOpen: (open: boolean) => void;
-  }
+export interface setIsOpenType {
+  setIsOpen: (open: boolean) => void;
 }
 
+interface headerDataElement {
+  text: string;
+  path: string;
+}
+
+export interface profileData {
+  userName: string;
+}

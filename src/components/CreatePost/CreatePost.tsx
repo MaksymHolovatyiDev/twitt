@@ -1,10 +1,15 @@
 import { useState } from 'react';
 
 import { TextareaAutosize } from '@mui/base';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { setIsOpenType } from '@Types';
+import { styles } from './CreatePost.styles.mui';
+import { useCreatePostsMutation } from '@Redux/services/backendAPI';
 
-export default function CreatePost() {
+export default function CreatePost({ setIsOpen }: setIsOpenType) {
   const [image, setImage] = useState('');
+  const [trigger]: any = useCreatePostsMutation();
 
   const onImageChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (evt.target.files && evt.target.files[0]) {
@@ -12,20 +17,39 @@ export default function CreatePost() {
     }
   };
 
+  const onFormSubmit = (evt: any) => {
+    evt.preventDefault();
+
+    const body: any = {};
+
+    body[evt.target[3]] = evt.target[3].value;
+
+    console.log(body);
+
+    trigger({ body });
+  };
+
   return (
-    <>
-      <Button>Close</Button>
-      <p>Text</p>
-      <TextareaAutosize minLength={1} className="create-post__input" />
-      <div className="create-post__container">
+    <form onSubmit={onFormSubmit}>
+      <p className="create-post__text">What's new?</p>
+
+      <TextareaAutosize
+        minLength={1}
+        id="form-text"
+        className="create-post__input"
+      />
+
+      <div className="create-post__container--column">
         {image && (
-          <img
-            id="blah"
-            src={image}
-            alt="your image"
-            className="create-post__image"
-          />
+          <div className="create-post__container--relative">
+            <IconButton sx={styles.icoBtn} onClick={() => setImage('')}>
+              <CloseIcon />
+            </IconButton>
+
+            <img src={image} alt="your image" className="create-post__image" />
+          </div>
         )}
+
         <Button variant="contained" component="label">
           Upload File
           <input
@@ -35,8 +59,16 @@ export default function CreatePost() {
             onChange={onImageChange}
           />
         </Button>
-        <Button>Create post</Button>
+
+        <div className="create-post__container--row">
+          <Button sx={styles.addBtn} type="submit">
+            Create post
+          </Button>
+          <Button sx={styles.closeBtn} onClick={() => setIsOpen(false)}>
+            Close
+          </Button>
+        </div>
       </div>
-    </>
+    </form>
   );
 }

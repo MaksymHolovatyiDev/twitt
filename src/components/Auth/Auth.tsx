@@ -1,21 +1,19 @@
 import { useEffect } from 'react';
 import { Button, Link, TextField } from '@mui/material';
-import Image from 'next/image';
 
-import { AuthData, formDataValuesType } from '@Types';
 import { useAuthorizationMutation } from '@Redux/services/backendAPI';
 import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setToken } from '@Redux/token/tokenSlice';
 import { Routes } from '@Routes';
+import { getAuthPageData } from './authData/authData';
 
-export default function Auth({ text, formData }: AuthData) {
+export default function Auth() {
   const path = usePathname();
   const router = useRouter();
-  const SignUpPath = path === Routes.SingUp;
+  const authData = getAuthPageData(path);
 
-  const [trigger, { isFetching, error, isSuccess, data }]: any =
-    useAuthorizationMutation();
+  const [trigger, { isSuccess, data }]: any = useAuthorizationMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,22 +32,17 @@ export default function Auth({ text, formData }: AuthData) {
       body[evt.target[i].id] = evt.target[i].value;
     }
 
-    trigger({ path: SignUpPath ? path : '/LogIn', body });
+    trigger({ path: authData.path, body });
   };
+
   return (
     <div className="auth__container">
-      <Image
-        src={require('@assets/images/logo.png')}
-        width={500}
-        height={500}
-        alt="Picture of the author"
-        className="auth__logo"
-      />
+      <p className="auth__logo">Twitt</p>
       <main>
-        <p className="auth__text">{text}</p>
+        <p className="auth__text">{authData.text}</p>
         <form className="auth__form" onSubmit={onSubmit}>
           <ul className="auth__list">
-            {formData.map(el => (
+            {authData.formData.map(el => (
               <li key={el.id}>
                 <TextField
                   sx={{ width: '100%' }}
@@ -64,15 +57,15 @@ export default function Auth({ text, formData }: AuthData) {
           </ul>
 
           <Button sx={{ fontFamily: 'inherit' }} type="submit">
-            {text}
+            {authData.text}
           </Button>
 
           <Link
             component={Button}
             sx={{ fontSize: '14px', textDecoration: 'none' }}
-            href={SignUpPath ? Routes.LogIn : Routes.SingUp}
+            href={authData.changePageButtonRoute}
           >
-            {SignUpPath ? 'Log In' : 'Sign Up'}
+            {authData.changePageButtonText}
           </Link>
         </form>
       </main>
