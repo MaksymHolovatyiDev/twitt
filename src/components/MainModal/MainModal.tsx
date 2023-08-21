@@ -9,7 +9,7 @@ export default function MainModal({
 }: {
   children: React.ReactNode;
   isOpen: boolean;
-  setIsOpen: any;
+  setIsOpen: (open:boolean)=>void;
 }) {
   return (
     <Modal open={isOpen} onClose={() => setIsOpen(false)} className="">

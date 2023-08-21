@@ -4,6 +4,8 @@ import { baseUrl } from '@environment/variables';
 import {
   AuthReq,
   AuthRes,
+  CommentReq,
+  CommentRes,
   CreatePostReq,
   LikeReq,
   LikeRes,
@@ -66,6 +68,16 @@ export const backendAPI = createApi({
         body,
       }),
     }),
+
+    commentPost: builder.mutation<CommentRes, CommentReq>({
+      query: body => ({
+        url: 'posts/comment',
+        method: 'POST',
+        body,
+      }),
+    }),
+
+   
   }),
 });
 
@@ -75,4 +87,5 @@ export const {
   useGetUserQuery,
   useCreatePostsMutation,
   useLikePostMutation,
+  useCommentPostMutation,
 } = backendAPI;

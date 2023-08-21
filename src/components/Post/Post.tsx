@@ -7,21 +7,33 @@ import { useEffect, useState } from 'react';
 import { PostType } from '@Redux/services/backendTypes';
 import MainModal from '@components/MainModal/MainModal';
 import PostComments from './PostComments';
+import PostUser from './PostUser';
+import { likesType } from '@Types';
 
-export default function Post({ text, likesNumber, isLiked, _id }: PostType) {
-  const [likes, setIsLiked] = useState<any>({ likes: null, liked: null });
+export default function Post({
+  text,
+  likesNumber,
+  isLiked,
+  _id,
+  name,
+  commentsNumber,
+  comments: commentsData,
+}: PostType) {
+  const [likes, setIsLiked] = useState<likesType>({ likes: null, liked: null });
+  const [comments, setComments] = useState<number>();
   const [isOpen, setIsOpen] = useState(false);
 
   const [trigger, { data, isSuccess }] = useLikePostMutation();
 
   useEffect(() => {
     setIsLiked({ likes: likesNumber, liked: isLiked });
+    setComments(commentsNumber);
   }, []);
 
   useEffect(() => {
     if (isSuccess && data)
-      setIsLiked((prevState: any) => ({
-        likes: data.liked ? ++prevState.likes : --prevState.likes,
+      setIsLiked((prevState: likesType) => ({
+        likes: data.liked ? ++prevState.likes! : --prevState.likes!,
         liked: data.liked,
       }));
   }, [isSuccess]);
@@ -29,10 +41,7 @@ export default function Post({ text, likesNumber, isLiked, _id }: PostType) {
   return (
     <>
       <div className="post">
-        <div className="post__container--start">
-          <div className="post__avatar">Av</div>
-          <p>User</p>
-        </div>
+        <PostUser name={name} />
         <p className="post__text">{text}</p>
         <div className="post__container--space">
           <div className="post__container--end">
@@ -48,7 +57,7 @@ export default function Post({ text, likesNumber, isLiked, _id }: PostType) {
           </div>
 
           <div className="post__container--base">
-            <p className="post__text--number">{likes.likes}</p>
+            <p className="post__text--number">{comments}</p>
             <IconButton sx={{ padding: '0' }} onClick={() => setIsOpen(true)}>
               <ChatBubbleIcon />
             </IconButton>
@@ -56,7 +65,8 @@ export default function Post({ text, likesNumber, isLiked, _id }: PostType) {
         </div>
       </div>
       <MainModal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <PostComments text={text} />
+        <PostUser name={name} />
+        <PostComments text={text} _id={_id} comments={commentsData} />
       </MainModal>
     </>
   );
