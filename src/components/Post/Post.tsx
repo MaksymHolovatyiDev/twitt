@@ -8,13 +8,7 @@ import { PostType } from '@Redux/services/backendTypes';
 import MainModal from '@components/MainModal/MainModal';
 import PostComments from './PostComments';
 
-export default function Post({
-  text,
-  likesNumber,
-  img,
-  isLiked,
-  _id,
-}: PostType) {
+export default function Post({ text, likesNumber, isLiked, _id }: PostType) {
   const [likes, setIsLiked] = useState<any>({ likes: null, liked: null });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +34,6 @@ export default function Post({
           <p>User</p>
         </div>
         <p className="post__text">{text}</p>
-        <div className="post__content">{img ? img : ''}</div>
         <div className="post__container--space">
           <div className="post__container--end">
             <p className="post__text--number">{likes.likes}</p>
@@ -63,7 +56,7 @@ export default function Post({
         </div>
       </div>
       <MainModal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <PostComments text={text } img={img } />
+        <PostComments text={text} />
       </MainModal>
     </>
   );

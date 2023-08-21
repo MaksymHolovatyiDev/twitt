@@ -14,11 +14,8 @@ export interface setIsOpenType {
   setIsOpen: (open: boolean) => void;
 }
 
-interface headerDataElement {
-  text: string;
-  path: string;
-}
 
 export interface profileData {
   userName: string;
 }
+

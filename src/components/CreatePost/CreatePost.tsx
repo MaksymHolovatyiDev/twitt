@@ -1,32 +1,21 @@
-import { useState } from 'react';
-
 import { TextareaAutosize } from '@mui/base';
-import { Button, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Button } from '@mui/material';
 import { setIsOpenType } from '@Types';
 import { styles } from './CreatePost.styles.mui';
 import { useCreatePostsMutation } from '@Redux/services/backendAPI';
+import { useEffect } from 'react';
 
 export default function CreatePost({ setIsOpen }: setIsOpenType) {
-  const [image, setImage] = useState('');
-  const [trigger]: any = useCreatePostsMutation();
+  const [trigger, { isSuccess }]: any = useCreatePostsMutation();
 
-  const onImageChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.files && evt.target.files[0]) {
-      setImage(URL.createObjectURL(evt.target.files[0]));
-    }
-  };
+  useEffect(() => {
+    if (isSuccess) setIsOpen(false);
+  }, [isSuccess]);
 
   const onFormSubmit = (evt: any) => {
     evt.preventDefault();
 
-    const body: any = {};
-
-    body[evt.target[3]] = evt.target[3].value;
-
-    console.log(body);
-
-    trigger({ body });
+    trigger({ text: evt.target.formText.value });
   };
 
   return (
@@ -35,31 +24,11 @@ export default function CreatePost({ setIsOpen }: setIsOpenType) {
 
       <TextareaAutosize
         minLength={1}
-        id="form-text"
+        id="formText"
         className="create-post__input"
       />
 
       <div className="create-post__container--column">
-        {image && (
-          <div className="create-post__container--relative">
-            <IconButton sx={styles.icoBtn} onClick={() => setImage('')}>
-              <CloseIcon />
-            </IconButton>
-
-            <img src={image} alt="your image" className="create-post__image" />
-          </div>
-        )}
-
-        <Button variant="contained" component="label">
-          Upload File
-          <input
-            type="file"
-            hidden
-            accept=".jpg, .jpeg, .png"
-            onChange={onImageChange}
-          />
-        </Button>
-
         <div className="create-post__container--row">
           <Button sx={styles.addBtn} type="submit">
             Create post

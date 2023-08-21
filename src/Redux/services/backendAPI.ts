@@ -26,7 +26,7 @@ const baseQuery = fetchBaseQuery({
 export const backendAPI = createApi({
   reducerPath: 'backendAPI',
   baseQuery: baseQuery,
-
+  tagTypes: ['AllPosts', 'User'],
   endpoints: builder => ({
     Authorization: builder.mutation<AuthRes, AuthReq>({
       query: data => ({
@@ -40,12 +40,14 @@ export const backendAPI = createApi({
       query: () => ({
         url: 'posts/all',
       }),
+      providesTags: ['AllPosts'],
     }),
 
     GetUser: builder.query<UserType, void>({
       query: () => ({
         url: 'posts/user',
       }),
+      providesTags: ['User'],
     }),
 
     CreatePosts: builder.mutation<PostType, CreatePostReq>({
@@ -54,6 +56,7 @@ export const backendAPI = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['AllPosts', 'User'],
     }),
 
     likePost: builder.mutation<LikeRes, LikeReq>({

@@ -51,13 +51,6 @@
     border-radius: 100%;
   }
 
-  &__content {
-    height: 300px;
-    width: 100%;
-
-    background-color: red;
-  }
-
   &__text {
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -115,17 +108,9 @@
       justify-content: space-around;
       align-items: center;
     }
-
-    &--relative {
-      position: relative;
-    }
   }
 
   &__text {
     text-align: center;
-  }
-
-  &__image {
-    max-width: 300px;
   }
 }

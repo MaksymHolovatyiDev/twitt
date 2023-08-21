@@ -24,7 +24,7 @@ export interface UserType {
 
 export interface CreatePostReq {
   text: string;
-  image?: string;
+  image?: any;
 }
 
 export interface LikeReq {
